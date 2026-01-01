@@ -1,0 +1,100 @@
+<%- include('partials/header') %>
+
+<section class="home" id="home">
+    <div class="home-content">
+        <h3>Hello, It's Me</h3>
+        <h1>Jeremiah Ojo</h1>
+        <h3>And I'm a <span class="multiple-text"></span></h3>
+        <p>I am a Full Stack Developer specializing in crafting robust web applications with modern technologies. Passionate about clean code and innovative solutions.</p>
+        <div class="social-media">
+            <a href="#"><i class='bx bxl-facebook'></i></a>
+            <a href="#"><i class='bx bxl-twitter'></i></a>
+            <a href="#"><i class='bx bxl-instagram-alt'></i></a>
+            <a href="#"><i class='bx bxl-linkedin'></i></a>
+        </div>
+        <a href="/images/Jeremiah_Ojo_CV.pdf" class="btn" download="Jeremiah_Ojo_CV">Download CV</a>
+    </div>
+
+    <div class="home-img">
+        <div class="profile-card">
+            <img src="/images/profile.jpg" alt="Jeremiah Ojo">
+        </div>
+    </div>
+</section>
+
+    <section class="about" id="about">
+        <div class="about-img">
+            <img src="/images/profile.jpg" alt="Jeremiah Ojo">
+        </div>
+        <div class="about-content">
+            <h2 class="heading">About <span>Me</span></h2>
+            <h3>Full Stack Developer & Mechatronics Engineer</h3>
+            <p>
+                I am a versatile professional with expertise in full-stack web development, scientific computing, and mechatronics. 
+                Currently pursuing Software Engineering at Pan Atlantic University, I bridge the gap between hardware and software—from 
+                embedded systems and robotics to building responsive web applications with HTML, CSS, JS, and Python.
+            </p>
+            <a href="#" class="btn">Read More</a>
+        </div>
+    </section>
+
+    <section class="services" id="services">
+    <h2 class="heading">My <span>Expertise</span></h2>
+    <div class="services-container">
+        <div class="services-box">
+            <i class='bx bx-code-alt'></i>
+            <h3>Software Development</h3>
+            <p>Full-stack web solutions and scientific computing with Python. Experience as a Web Developer Intern at Business Day Media House.</p>
+        </div>
+        <div class="services-box">
+            <i class='bx bx-cog'></i>
+            <h3>Mechatronics</h3>
+            <p>Embedded systems, robotics, and automation. Background in PLC, AutoCAD, and automobile engineering maintenance.</p>
+        </div>
+        <div class="services-box">
+            <i class='bx bx-bar-chart-alt-2'></i> 
+            <h3>Data Analyst</h3>
+            <p>Scientific computing with python, MySQL.</p>
+        </div>
+    </div>
+</section>
+
+    <section class="portfolio" id="portfolio">
+        <h2 class="heading">Latest <span>Projects</span></h2>
+        <div class="portfolio-container">
+            <div class="portfolio-box">
+                <img src="/images/engigrow.jpg" alt="EngiGrow">
+                <div class="portfolio-layer">
+                    <h4>EngiGrow</h4>
+                    <p>An engineering learning platform designed for technical skill development.</p>
+                    <a href="https://engigrow-platform.onrender.com/"><i class='bx bx-link-external'></i></a>
+                </div>
+            </div>
+                        <div class="portfolio-box">
+                <img src="/images/marketpulse.jpg" alt="MarketPulse">
+                <div class="portfolio-layer">
+                    <h4>MarketPulse</h4>
+                    <p>PAU 2025 Hackathon project focused on market data analysis.</p>
+                    <a href="https://binarybeast-xxyvu9gnvmnhlilxyhxmms.streamlit.app/"><i class='bx bx-link-external'></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<section class="contact" id="contact">
+    <h2 class="heading">Contact <span>Me!</span></h2>
+
+    <form action="/contact" method="POST">
+        <div class="input-box">
+            <input type="text" name="name" placeholder="Full Name" required>
+            <input type="email" name="email" placeholder="Email Address" required>
+        </div>
+        <div class="input-box">
+            <input type="number" name="mobile" placeholder="Mobile Number">
+            <input type="text" name="subject" placeholder="Email Subject">
+        </div>
+        <textarea name="message" cols="30" rows="10" placeholder="Your Message" required></textarea>
+        <input type="submit" value="Send Message" class="btn">
+    </form>
+</section>
+<%- include('partials/footer') %>
