@@ -25,7 +25,7 @@ app.post('/contact', (req, res) => {
         secure: true, // Use SSL
         auth: {
             user: 'ojojeremiah249@gmail.com',
-            pass: process.env.MAIL_PASS || 'zveh afvx gzzh bzxm' 
+            pass: process.env.MAIL_PASS 
         },
         tls: {
             rejectUnauthorized: false // Helps bypass local network/ISP blocks
