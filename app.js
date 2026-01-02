@@ -20,18 +20,19 @@ app.post('/contact', (req, res) => {
 
     // NEW TRANSPORTER CONFIGURATION (Port 465 + TLS Bypass)
     const transporter = nodemailer.createTransport({
-        host: 'smtp.gmail.com',
-        port: 587, 
-        secure: false, // Use SSL
+        host: 'smtp.googlemail.com', // Using the alternative Google host
+        port: 465, 
+        secure: true, 
         auth: {
             user: 'ojojeremiah249@gmail.com',
             pass: process.env.MAIL_PASS 
         },
+        connectionTimeout: 30000, // Wait 30 seconds before giving up
+        greetingTimeout: 30000,
+        socketTimeout: 30000,
         tls: {
-            rejectUnauthorized: false, // Helps bypass local network/ISP blocks
-            ciphers: 'SSLv3'
-        },
-        connectionTimeout: 10000
+            rejectUnauthorized: false 
+        }
     });
 
     const mailOptions = {
