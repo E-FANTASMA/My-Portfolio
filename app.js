@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 const nodemailer = require('nodemailer');
+const sgTransport = require('nodemailer-sendgrid-transport');
 const fs = require('fs');
 
 // 1. Middleware MUST come before routes
@@ -18,57 +19,38 @@ app.get('/', (req, res) => {
 app.post('/contact', (req, res) => {
     const { name, email, mobile, subject, message } = req.body;
 
-    // NEW TRANSPORTER CONFIGURATION (Port 465 + TLS Bypass)
-    const transporter = nodemailer.createTransport({
-        host: 'smtp.googlemail.com', // Using the alternative Google host
-        port: 465, 
-        secure: true, 
+    // 1. Configure the SendGrid Transporter
+    const transporter = nodemailer.createTransport(sgTransport({
         auth: {
-            user: 'ojojeremiah249@gmail.com',
-            pass: process.env.MAIL_PASS 
-        },
-        connectionTimeout: 30000, // Wait 30 seconds before giving up
-        greetingTimeout: 30000,
-        socketTimeout: 30000,
-        tls: {
-            rejectUnauthorized: false 
+            api_key: process.env.SENDGRID_API_KEY
         }
-    });
+    }));
 
+    // 2. Mail Options (Must use the email you verified in SendGrid)
     const mailOptions = {
-        from: email,
+        from: 'ojojeremiah249@gmail.com', // Your verified sender
         to: 'ojojeremiah249@gmail.com',
         subject: `Portfolio: ${subject}`,
-        text: `Name: ${name}\nPhone: ${mobile}\nEmail: ${email}\n\nMessage:\n${message}`
+        text: `Name: ${name}\nPhone: ${mobile}\nEmail: ${email}\n\nMessage:\n${message}`,
+        replyTo: email // This lets you reply directly to the user
     };
 
-    const logEntry = `
-        Date: ${new Date().toLocaleString()}
-        Name: ${name}
-        Email: ${email}
-        Mobile: ${mobile}
-        Subject: ${subject}
-        Message: ${message}
-        -------------------------
-        `;
-
+    // 3. Keep your logging logic
+    const logEntry = `\nDate: ${new Date().toLocaleString()}\nName: ${name}\nMessage: ${message}\n-------------------------`;
     fs.appendFile('contact_logs.txt', logEntry, (err) => {
-        if (err) console.log("Error saving log:", err);
-        else console.log("Message logged to contact_logs.txt");
+        if (err) console.log("Log Error:", err);
     });
 
+    // 4. Send the Mail
     transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
-            console.error("--- FULL ERROR START ---");
-            console.error("Error Code:", error.code); 
-            console.error("Command:", error.command); 
-            console.error("Response:", error.response); 
-            console.error("--- FULL ERROR END ---");
-            return res.status(500).send("Email failed. Check your terminal logs for the code.");
+            console.error("SendGrid Error:", error);
+            return res.status(500).send("SendGrid failed. Check your API Key.");
         }
-        res.send("<script>alert('Message Sent Successfully!'); window.location.href='/';</script>");
+        res.send("<script>alert('Message Sent via SendGrid!'); window.location.href='/';</script>");
     });
 });
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
