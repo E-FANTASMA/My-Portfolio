@@ -29,7 +29,8 @@ app.post('/contact', (req, res) => {
         },
         tls: {
             rejectUnauthorized: false // Helps bypass local network/ISP blocks
-        }
+        },
+        connectionTimeout: 10000
     });
 
     const mailOptions = {
